@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Login & Register</title>
+</head>
+<body>
+<h2>Register</h2>
+<form id="Register">
+    <input type="text" name="name" id="name" placeholder="Name" required><br>
+    <input type="text" name="username" id="username" placeholder="Username" required><br>
+    <input type="email" name="regEmail" id="regEmail" placeholder="Email" required><br>
+    <input type="password" name="regPassword" id="regPassword" placeholder="Password" required><br>
+    <button type="button" onclick="register(event)">Register</button><br>
+</form>
+
+<h2>Login</h2>
+<form id="Login">
+    <input type="email" name="loginEmail" id="loginEmail" placeholder="Email" required><br>
+    <input type="password" name="loginPassword" id="loginPassword" placeholder="Password" required><br>
+    <button type="button" onclick="login(event)">Login</button><br>
+</form>
+
+<!-- Output goes here -->
+<div id="result"></div>
+
+<script>
+    function register(event) {
+        event.preventDefault();
+        const name = document.getElementById("name").value;
+        const username = document.getElementById("username").value;
+        const email = document.getElementById("regEmail").value;
+        const password = document.getElementById("regPassword").value;
+
+        fetch("register", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/x-www-form-urlencoded"
+            },
+            body: new URLSearchParams({
+                name: name,
+                username: username,
+                email: email,
+                password: password
+            })
+        })
+            .then(response => response.text())
+            .then(text => {
+                document.getElementById("result").innerHTML = text;
+            })
+            .catch(error => {
+                document.getElementById("result").innerHTML = "<p style='color: red;'>Error: " + error + "</p>";
+            });
+    }
+
+    function login(event) {
+        event.preventDefault();
+        const email = document.getElementById("loginEmail").value;
+        const password = document.getElementById("loginPassword").value;
+
+        fetch("login", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/x-www-form-urlencoded"
+            },
+            body: new URLSearchParams({
+                email: email,
+                password: password
+            })
+        })
+            .then(response => response.text())
+            .then(text => {
+                document.getElementById("result").innerHTML = text;
+            })
+            .catch(error => {
+                document.getElementById("result").innerHTML = "<p style='color: red;'>Error: " + error + "</p>";
+            });
+    }
+</script>
+</body>
+</html>
