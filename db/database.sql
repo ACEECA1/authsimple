@@ -16,6 +16,3 @@ INSERT INTO Users (displayname, Username, Email, Password) VALUES
 ('John Doe', 'johndoe', 'john.doe@example.com', 'password123'),
 ('Jane Smith', 'janesmith', 'jane.smith@example.com', 'password456'),
 ('Alice Johnson', 'alicej', 'alice.johnson@example.com', 'password789');
-
--- @block
-DROP TABLE Users;
